@@ -1,0 +1,22 @@
+{
+  "name": "twitter-hate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isaachess/not-your-team.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isaachess/not-your-team/issues"
+  },
+  "homepage": "https://github.com/isaachess/not-your-team#readme",
+  "dependencies": {
+    "lodash": "^3.10.1"
+  }
+}
