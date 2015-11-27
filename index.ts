@@ -1,8 +1,16 @@
 /// <reference path="./typings/node/node.d.ts" />
 /// <reference path="./typings/request/request.d.ts" />
+/// <reference path="./typings/lodash/lodash.d.ts" />
 
 import * as request from 'request';
 import * as fs from 'fs';
+import * as _ from 'lodash';
+
+interface Tweet {
+    id: number;
+    id_str: string;
+    text: string;
+}
 
 var url = 'https://userstream.twitter.com/1.1/user.json'
 var oauth:request.OAuthOptions = {
@@ -14,5 +22,37 @@ var oauth:request.OAuthOptions = {
 
 request.get({url: url, oauth:oauth})
 .on('response', (response) => {
-    response.on('data', (data) => console.log('data', data.toString('utf8')))
+    var tweetBuffer;
+    response.on('data', (data) => {
+
+        if (!tweetBuffer) tweetBuffer = data
+        else tweetBuffer = combineBuffers(tweetBuffer, data)
+
+        var tweet = bufferToJson(tweetBuffer)
+        if (!!tweet) {
+            tweetBuffer = null
+            if (isTweet(tweet)) return handleTweet(tweet)
+        }
+    })
 })
+
+function combineBuffers(oldBuffer:any, newBuffer:any):any {
+    return Buffer.concat([oldBuffer, newBuffer])
+}
+
+function bufferToJson(buffer):any {
+    try {
+        var data = buffer.toString('utf8')
+        return JSON.parse(data)
+    }
+    catch(e) {
+        return null
+    }
+}
+
+function handleTweet(tweet:Tweet):void {
+}
+
+function isTweet(response:any):boolean {
+    return !!response && !!response.text && !!response.id_str
+}
