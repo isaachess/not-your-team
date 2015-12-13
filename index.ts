@@ -1,10 +1,15 @@
 /// <reference path="./typings/node/node.d.ts" />
 /// <reference path="./typings/request/request.d.ts" />
 /// <reference path="./typings/lodash/lodash.d.ts" />
+/// <reference path="./typings/bluebird/bluebird.d.ts" />
 
+import * as Promise from 'bluebird';
 import * as request from 'request';
 import * as fs from 'fs';
 import * as _ from 'lodash';
+
+var requestPromise = Promise.promisify(request)
+Promise.promisifyAll(requestPromise)
 
 interface Tweet {
     id: number;
@@ -20,11 +25,9 @@ var oauth:request.OAuthOptions = {
     token_secret: process.env.TWITTER_ACCES_TOKEN_SECRET
 }
 
-request.get({url: url, oauth:oauth})
-.on('response', (response) => {
+request.get({url: url, oauth:oauth}).on('response', (response) => {
     var tweetBuffer;
     response.on('data', (data) => {
-
         if (!tweetBuffer) tweetBuffer = data
         else tweetBuffer = combineBuffers(tweetBuffer, data)
 
@@ -51,6 +54,16 @@ function bufferToJson(buffer):any {
 }
 
 function handleTweet(tweet:Tweet):void {
+    console.log('tweet', tweet)
+    var tweetText = tweet.text.toLowerCase()
+    var teamIHate = 'cardinals'
+    if (_.contains(tweetText, teamIHate)) {
+        console.log('i hate the cardinals')
+        replyToTweet(tweet, teamIHate)
+    }
+}
+
+function replyToTweet(tweet:Tweet, team:string):any {
 }
 
 function isTweet(response:any):boolean {
