@@ -11,9 +11,6 @@ import * as _ from 'lodash';
 import {getUsers} from './model/user'
 import {isTweet, handleTweet} from './services/twitter'
 
-var requestPromise = Promise.promisify(request)
-Promise.promisifyAll(requestPromise)
-
 var userStreamUrl = 'https://userstream.twitter.com/1.1/user.json'
 var oauth:request.OAuthOptions = {
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
