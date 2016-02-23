@@ -13,8 +13,11 @@ var oauth:request.OAuthOptions = {
     token_secret: process.env.TWITTER_ACCES_TOKEN_SECRET
 }
 
+var appName = "NotYourTeam"
+
 export function handleTweet(tweet:Tweet, user:User):Promise<void>[] {
-    if (tweet.user.id != user.twitterId) {
+    if (tweet.user.id != user.twitterId && !_.includes(tweet.source, appName)) {
+        console.log('handling tweet', tweet)
         let tweetText:string = tweet.text.toLowerCase();
         let teamsInTweet:TeamInfo[] = findTeamsInTweet(tweetText, user.teamInfos)
         return teamsInTweet.map((team:TeamInfo) => replyToTweet(tweet, team))
