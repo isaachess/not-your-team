@@ -25,5 +25,12 @@ interface TwitterUser {
 interface User {
     id: number;
     twitterId: number;
-    hatedTeams: string[];
+    teams: string[];
+    teamInfos: TeamInfo[];
+}
+
+interface TeamInfo {
+    handle: string;
+    name: string;
+    matches: string[];
 }

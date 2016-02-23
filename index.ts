@@ -34,7 +34,7 @@ function listenToUserStream(user:User):void {
             var validJson = bufferToJson(tweetBuffer)
             if (!!validJson) {
                 tweetBuffer = null
-                if (isTweet(validJson)) handleTweet(validJson, user.twitterId)
+                if (isTweet(validJson)) handleTweet(validJson, user)
             }
         })
     })

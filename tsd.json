@@ -6,10 +6,10 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "lodash/lodash.d.ts": {
-      "commit": "36c6ce86fb64bafb28ec95dc78c6b98228b45c8d"
+      "commit": "dade4414712ce84e3c63393f1aae407e9e7e6af7"
     },
     "bluebird/bluebird.d.ts": {
-      "commit": "8ea42cd8bb11863ed6f242d67c502288ebc45a7b"
+      "commit": "dade4414712ce84e3c63393f1aae407e9e7e6af7"
     }
   }
 }
