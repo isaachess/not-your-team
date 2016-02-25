@@ -2,14 +2,37 @@
 /// <reference path="./typings/request/request.d.ts" />
 /// <reference path="./typings/lodash/lodash.d.ts" />
 /// <reference path="./typings/bluebird/bluebird.d.ts" />
+/// <reference path="./typings/express/express.d.ts" />
 /// <reference path="./types.ts" />
 
 import * as Promise from 'bluebird';
 import * as request from 'request';
 import * as fs from 'fs';
 import * as _ from 'lodash';
+import * as express from 'express';
+import * as path from 'path';
 import {getUsers} from './model/user'
 import {isTweet, handleTweet} from './services/twitter'
+
+///////////////////////////
+/// Express app ///////////
+///////////////////////////
+
+var app = express()
+var port = 3000
+
+// Add resources
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './front-end/index.html'))
+})
+
+app.listen(port)
+console.log('app listening on port', port)
+
+///////////////////////////
+/// Start user streams ////
+///////////////////////////
 
 var userStreamUrl = 'https://userstream.twitter.com/1.1/user.json'
 var oauth:request.OAuthOptions = {
@@ -24,6 +47,7 @@ getUsers().then((users:User[]) => {
 })
 
 function listenToUserStream(user:User):void {
+    console.log('listening to user stream for user', user.id)
     request.get({url: userStreamUrl, oauth:oauth}).on('response', (response) => {
         var tweetBuffer;
         response.on('data', (data) => {
