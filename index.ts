@@ -23,6 +23,9 @@ var port = 3000
 
 // Add resources
 
+app.use('/scripts', express.static('./node_modules'))
+app.use('/app', express.static('./front-end/app'))
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './front-end/index.html'))
 })

@@ -20,10 +20,18 @@
     "lodash": "^4.5.1",
     "request": "^2.67.0",
     "bluebird": "~3.0.6",
-    "express": "~4.13.4"
+    "express": "~4.13.4",
+    "systemjs": "~0.19.23",
+    "es6-promise": "~3.1.2",
+    "es6-shim": "~0.33.13",
+    "reflect-metadata": "~0.1.2",
+    "zone.js": "~0.5.15",
+    "rxjs": "~5.0.0-beta.2",
+    "angular2": "~2.0.0-beta.7"
   },
   "devDependencies": {
     "gulp": "~3.9.0",
-    "shelljs": "~0.5.3"
+    "shelljs": "~0.5.3",
+    "webpack": "~1.12.14"
   }
 }
